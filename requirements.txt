@@ -1,0 +1,16 @@
+flask
+flask-smorest
+sqlalchemy
+flask-sqlalchemy
+python-dotenv
+marshmallow
+flask-jwt-extended
+passlib
+flask-migrate
+gunicorn
+psycopg2
+requests
+redis
+jinja2
+azure-identity
+azure-keyvault-secrets
