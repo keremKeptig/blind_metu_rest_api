@@ -1,7 +1,10 @@
 from flask import Flask, jsonify
 from flask_smorest import Api
+from flask_sqlalchemy import SQLAlchemy
+
 from resources.user import blp as user_bp
 from dotenv import load_dotenv
+from flask_migrate import Migrate
 
 from database import db
 import os
@@ -13,7 +16,7 @@ def create_app(db_url=None):
 
 
     app.config["PROPAGATE_EXCEPTIONS"] = True
-    app.config["API_TITLE"] = "Stores REST API"
+    app.config["API_TITLE"] = "REST API blind"
     app.config["API_VERSION"] = "v1"
     app.config["OPENAPI_VERSION"] = "3.0.3"
     app.config["OPENAPI_URL_PREFIX"] = "/"
@@ -21,7 +24,7 @@ def create_app(db_url=None):
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    db.init_app(app)
+    db = SQLAlchemy(app)
     api = Api(app)
 
     app.config["JWT_SECRET_KEY"] = "80667524238808854628174589614279646612"
