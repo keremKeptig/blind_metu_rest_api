@@ -20,7 +20,7 @@ class UserRegister(MethodView):
     def post(self, user_data):
         # Check if the given username or gedner already exists
         existing_user = UserTable.query.filter(
-            or_(UserTable.username == user_data["username"], UserTable.gender == user_data["gender"])).first()
+            or_(UserTable.username == user_data["username"])).first()
 
         if existing_user:
             abort(409, message="Given username or gender already exists")
@@ -28,7 +28,6 @@ class UserRegister(MethodView):
         password = pbkdf2_sha256.hash(user_data["password"])
 
 
-        # Create a new user without storing the password in my database
         user = UserTable(username=user_data["username"], gender=user_data["gender"], password=password)
 
         # Add the user to the database
