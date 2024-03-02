@@ -35,3 +35,18 @@ class UserRegister(MethodView):
         db.session.commit()
 
         return {"message": "User created successfully"}, 201
+
+@blp.route("/login")
+class UserLogin(MethodView):
+    @blp.arguments(UserSchema)
+    def post(self, user_data):
+        user = UserTable.query.filter(UserTable.username == user_data["username"]).first()
+
+
+        # Verify the provided password against the hashed password from Azure Key Vault
+        if user and pbkdf2_sha256.verify(user_data["password"], user.password):
+
+            return {"message": "Login successful"}, 201
+
+        # Passwords do not match; abort with 401 status if credentials are invalid
+        abort(401, message="Invalid credentials")
