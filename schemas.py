@@ -23,5 +23,10 @@ class QuestionSchema(Schema):
     choice3 = fields.Str(required=False)
     choice4 = fields.Str(required=False)
     choice5 = fields.Str(required=False)
-    test_id = fields.Str(load_only=True)
+    test_id = fields.Int(load_only=True)
 
+class AnswerSchema(Schema):
+    id = fields.Int(dump_only=True)
+    user_id = fields.Int(load_only=True)
+    q_id = fields.Int(load_only=True)
+    choice = fields.Str(required=False)
