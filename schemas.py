@@ -16,14 +16,12 @@ class UserRegisterSchema(UserSchema):
 
 
 class QuestionSchema(Schema):
-    q_id = fields.Int(required=True)
-    test_id = fields.Int(required=True)
-
+    q_id = fields.Int(dump_only=True)
     q_text = fields.Str(required=False)
-
     choice1 = fields.Str(required=False)
     choice2 = fields.Str(required=False)
     choice3 = fields.Str(required=False)
     choice4 = fields.Str(required=False)
     choice5 = fields.Str(required=False)
+    test_id = fields.Str(load_only=True)
 
