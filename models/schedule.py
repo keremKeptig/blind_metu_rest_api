@@ -8,6 +8,6 @@ class ScheduleTable(db.Model):
     # slots = db.Column(db.Integer, db.ForeignKey("slots.slot_id"), unique=False, nullable=False)
     slots = db.Column(db.Integer, unique=False, nullable=False)
 
-    users = db.relationship('UserTable', back_populates='schedules', cascade='all, delete')
+    # users = db.relationship('UserTable', back_populates='schedules', cascade='all, delete')
 
 

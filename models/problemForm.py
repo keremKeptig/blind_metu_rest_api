@@ -9,4 +9,4 @@ class ProblemTable(db.Model):
 
     id = db.Column(db.Integer, db.ForeignKey("users.id"), unique=False, nullable=False)
 
-    user = db.relationship("UserTable", back_populates="problemForms")
+    # user = db.relationship("UserTable", back_populates="problemForms")

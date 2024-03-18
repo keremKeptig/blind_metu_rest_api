@@ -15,6 +15,6 @@ class QuestionTable(db.Model):
 
     test_id = db.Column(db.Integer, db.ForeignKey("tests.test_id"), unique=False, nullable=False)
 
-    test = db.relationship("TestTable", back_populates="questions")
-    user = db.relationship("UserTable", back_populates="questions")
-
+    # test = db.relationship("TestTable", back_populates="questions")
+    # user = db.relationship("UserTable", back_populates="questions")
+    #
