@@ -28,28 +28,3 @@ class UserRegisterSchema(UserSchema):
     matches = fields.List(fields.Nested(PlainMatches()), dump_only=True)
     questions = fields.List(fields.Nested(PlainQuestions()), dump_only=True)
 
-
-class PlainItemSchema(Schema):
-    id = fields.Int(dump_only=True)
-    name = fields.Str(required=True)
-    price = fields.Float(required=True)
-class ItemSchema(PlainItemSchema):
-    store_id = fields.Int(required=True, load_only=True)
-    store = fields.Nested(PlainStoreSchema(), dump_only=True)
-    orders = fields.List(fields.Nested(PlainOrderSchema()), dump_only=True)
-
-
-
-class PlainOrderSchema(Schema):
-    id = fields.Int(dump_only=True)
-    name = fields.Str()
-
-
-class PlainStoreSchema(Schema):
-    id = fields.Int(dump_only=True)
-    name = fields.Str()
-
-
-class StoreSchema(PlainStoreSchema):
-    items = fields.List(fields.Nested(PlainItemSchema()), dump_only=True)
-    orders = fields.List(fields.Nested(PlainOrderSchema()), dump_only=True)
