@@ -3,6 +3,7 @@ from flask_smorest import Api
 from flask_sqlalchemy import SQLAlchemy
 
 from resources.user import blp as user_bp
+from resources.questions import blp as question_blp
 from dotenv import load_dotenv
 from flask_migrate import Migrate
 
@@ -33,6 +34,6 @@ def create_app(db_url=None):
     with app.app_context():
         db.create_all()
     api.register_blueprint(user_bp)
-
+    api.register_blueprint(question_blp)
 
     return app

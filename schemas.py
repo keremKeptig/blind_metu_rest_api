@@ -15,3 +15,15 @@ class UserRegisterSchema(UserSchema):
     sexual_interest = fields.Int(required=False)
 
 
+class QuestionSchema(Schema):
+    q_id = fields.Int(required=True)
+    test_id = fields.Int(required=True)
+
+    q_text = fields.Str(required=False)
+
+    choice1 = fields.Str(required=False)
+    choice2 = fields.Str(required=False)
+    choice3 = fields.Str(required=False)
+    choice4 = fields.Str(required=False)
+    choice5 = fields.Str(required=False)
+
