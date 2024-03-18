@@ -1,7 +1,7 @@
 import os
 import requests
 from flask import jsonify
-from sqlalchemy import or_
+from sqlalchemy import or_, func
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
@@ -26,3 +26,15 @@ class Question(MethodView):
 
         question_texts = [question.q_text for question in questions]
         return jsonify(question_texts)
+
+@blp.route("/question")
+class TestFind(MethodView):
+
+    @blp.response(200)
+    def get(self):
+        # tests = TestTable.query.all()
+
+        max_test_id = db.session.query(func.max(TestTable.test_id)).scalar()
+        print("En yüksek test ID:", max_test_id)
+
+        return max_test_id
