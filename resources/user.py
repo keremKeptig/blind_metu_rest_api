@@ -8,7 +8,7 @@ from database import db
 from schemas import UserSchema, UserRegisterSchema
 from models import UserTable
 import jinja2
-
+from datetime import date
 # Creating a Flask-Smorest Blueprint
 blp = Blueprint("Users", "users", description="Operations on users")
 
@@ -18,7 +18,7 @@ class UserRegister(MethodView):
 
     @blp.arguments(UserRegisterSchema)
     def post(self, user_data):
-        # Check if the given username or gedner already exists
+        # Check if the given username already exists
         existing_user = UserTable.query.filter(
             or_(UserTable.username == user_data["username"])).first()
 
@@ -27,8 +27,8 @@ class UserRegister(MethodView):
 
         password = pbkdf2_sha256.hash(user_data["password"])
 
-
-        user = UserTable(username=user_data["username"], gender=user_data["gender"], password=password)
+        user = UserTable(username=user_data["username"], gender=user_data["gender"], password=password,
+                         date_of_birth=user_data["date_of_birth"], sexual_interest=user_data["sexual_interest"])
 
         # Add the user to the database
         db.session.add(user)
@@ -43,7 +43,7 @@ class UserLogin(MethodView):
         user = UserTable.query.filter(UserTable.username == user_data["username"]).first()
 
 
-        # Verify the provided password against the hashed password from Azure Key Vault
+        # Verify the provided password against the hashed password
         if user and pbkdf2_sha256.verify(user_data["password"], user.password):
 
             return {"message": "Login successful"}, 201

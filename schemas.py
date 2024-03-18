@@ -10,3 +10,5 @@ class UserSchema(Schema):
 
 class UserRegisterSchema(UserSchema):
     gender = fields.Int(required=True)
+    date_of_birth = fields.Str(required=False)
+    sexual_interest = fields.Int(required=False)
