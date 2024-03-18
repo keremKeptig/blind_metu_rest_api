@@ -17,3 +17,4 @@ class UserTable(db.Model):
     answers = db.relationship('AnswerTable', back_populates='user', cascade='all, delete')
     questions = db.relationship('QuestionTable', back_populates='user', cascade='all, delete')
     matches = db.relationship('MatchTable', back_populates='user', cascade='all, delete')
+
