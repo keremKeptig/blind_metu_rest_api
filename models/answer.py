@@ -9,4 +9,4 @@ class AnswerTable(db.Model):
     q_id = db.Column(db.Integer, db.ForeignKey("questions.q_id"))
     choice = db.Column(db.String(2), nullable=False)
 
-
+    user = db.relationship('UserTable', back_populates='answer')

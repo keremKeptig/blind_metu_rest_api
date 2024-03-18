@@ -10,4 +10,4 @@ class MatchTable(db.Model):
     match_date = db.Column(db.Date, nullable=True)
     match_location = db.Column(db.String(256), nullable=False)
 
-
+    user = db.relationship('UserTable', back_populates='match')

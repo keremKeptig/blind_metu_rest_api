@@ -13,8 +13,7 @@ class UserTable(db.Model):
 
     schedule_id = db.Column(db.Integer, db.ForeignKey("schedules.schedule_id"), unique=False, nullable=True)
 
-
-    answers = db.relationship('AnswerTable', back_populates='users', cascade='all, delete')
-    questions = db.relationship('QuestionTable', back_populates='users', cascade='all, delete')
-    matches = db.relationship('MatchTable', back_populates='users', cascade='all, delete')
+    answers = db.relationship('AnswerTable', back_populates='user', cascade='all, delete')
+    questions = db.relationship('QuestionTable', back_populates='user', cascade='all, delete')
+    matches = db.relationship('MatchTable', back_populates='user', cascade='all, delete')
 
