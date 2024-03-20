@@ -15,13 +15,15 @@ from datetime import date
 blp = Blueprint("Answers", "answers", description="Operations on answers")
 
 
-@blp.route("/answer/<int:user_id>/<int:q_id>")
+@blp.route("/answer/<string:username>/<int:q_id>")
 class UserRegister(MethodView):
 
     @blp.arguments(AnswerSchema)
     @blp.response(201, AnswerSchema)
-    def post(self, answer_data, user_id, q_id):
-        answer = AnswerTable(**answer_data, user_id=user_id, q_id=q_id)
+    def post(self, answer_data, username, q_id):
+        user = UserTable.query.filter_by(username=username).first()
+
+        answer = AnswerTable(**answer_data, user_id=user.id, q_id=q_id)
         try:
             db.session.add(answer)
             db.session.commit()
