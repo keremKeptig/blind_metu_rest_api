@@ -24,7 +24,7 @@ class Question(MethodView):
         if not questions:
             abort(404, message=f"No questions found for test_id {test_id}")
 
-        question_texts = [question.q_text for question in questions]
+        question_texts = [(question.q_text, question.q_id) for question in questions]
         return jsonify(question_texts)
 
 @blp.route("/question")
