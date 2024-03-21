@@ -30,3 +30,8 @@ class AnswerSchema(Schema):
     user_id = fields.Int(load_only=True)
     q_id = fields.Int(load_only=True)
     choice = fields.Str(required=False)
+
+class ProblemSchema(Schema):
+    form_id = fields.Int(dump_only=True)
+    comment = fields.Str(required=False)
+    id = fields.Int(load_only=True)

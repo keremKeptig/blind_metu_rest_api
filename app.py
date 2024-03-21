@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from resources.user import blp as user_bp
 from resources.questions import blp as question_blp
 from resources.answer import blp as answ_blp
+from resources.problem import blp as problem_blp
 from dotenv import load_dotenv
 from flask_migrate import Migrate
 
@@ -37,5 +38,6 @@ def create_app(db_url=None):
     api.register_blueprint(user_bp)
     api.register_blueprint(question_blp)
     api.register_blueprint(answ_blp)
+    api.register_blueprint(problem_blp)
 
     return app

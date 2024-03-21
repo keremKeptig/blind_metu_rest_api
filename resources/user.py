@@ -50,3 +50,4 @@ class UserLogin(MethodView):
 
         # Passwords do not match; abort with 401 status if credentials are invalid
         abort(401, message="Invalid credentials")
+
