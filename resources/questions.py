@@ -47,7 +47,6 @@ class TestFind(MethodView):
             test_start_datetime = datetime.combine(test.test_start_date, datetime.min.time())
             test_end_datetime = datetime.combine(test.test_end_date, datetime.max.time())
 
-            # Karşılaştırma yapın
             if test_start_datetime <= date_object <= test_end_datetime:
                 test_id = test.test_id
                 break
