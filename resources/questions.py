@@ -7,7 +7,7 @@ from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
 from database import db
 from schemas import UserSchema, QuestionSchema
-from models import QuestionTable,TestTable
+from models import QuestionTable,TestTable, AnswerTable
 from datetime import datetime
 import jinja2
 from datetime import date
@@ -27,6 +27,26 @@ class Question(MethodView):
 
         question_texts = [(question.q_text, question.q_id) for question in questions]
         return jsonify(question_texts)
+
+
+@blp.route("/question/<string:username>/<int:test_id>")
+class UserCheckTestIsSolved(MethodView):
+
+    @blp.response(200)
+    def get(self, username, test_id):
+        # Query questions based on test_id
+        # not solved yet
+        isTestSolved = 1
+
+        questions = QuestionTable.query.filter_by(test_id=test_id).all()
+
+        for question in questions:
+            answers = AnswerTable.query.filter_by(q_id=question.q_id).all()
+            for answer in answers:
+                if answer.user_id == username:
+                    isTestSolved = 0
+
+        return isTestSolved
 
 @blp.route("/question")
 class TestFind(MethodView):
@@ -51,5 +71,5 @@ class TestFind(MethodView):
                 test_id = test.test_id
                 break
 
-
         return test_id
+
