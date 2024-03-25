@@ -21,9 +21,9 @@ class ProblemForm(MethodView):
     @blp.arguments(ProblemSchema)
     @blp.response(201, ProblemSchema)
     def post(self, problem_data, username):
-        user = UserTable.query.filter_by(username=username).first()
+        user = UserTable.query.get_or_404(username)
 
-        problem_comment = ProblemTable(**problem_data,id=user.id)
+        problem_comment = ProblemTable(**problem_data,id=user.username)
         try:
             db.session.add(problem_comment)
             db.session.commit()
