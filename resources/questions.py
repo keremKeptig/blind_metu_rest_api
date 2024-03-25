@@ -27,11 +27,11 @@ class Question(MethodView):
         question_texts = [(question.q_text, question.q_id) for question in questions]
         return jsonify(question_texts)
 
-@blp.route("/question")
+@blp.route("/question/<string:current_date>")
 class TestFind(MethodView):
 
     @blp.response(200)
-    def get(self):
+    def get(self, current_date):
         # tests = TestTable.query.all()
 
         max_test_id = db.session.query(func.max(TestTable.test_id)).scalar()

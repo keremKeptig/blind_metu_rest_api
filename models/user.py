@@ -4,8 +4,8 @@ from datetime import date
 class UserTable(db.Model):
     __tablename__ = "users"
 
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
+    # id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), primary_key=True)
     password = db.Column(db.String(256), nullable=False)
     gender = db.Column(db.Integer, nullable=False)
     date_of_birth = db.Column(db.Date, nullable=False)

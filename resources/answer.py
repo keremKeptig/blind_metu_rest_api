@@ -21,9 +21,9 @@ class UserRegister(MethodView):
     @blp.arguments(AnswerSchema)
     @blp.response(201, AnswerSchema)
     def post(self, answer_data, username, q_id):
-        user = UserTable.query.filter_by(username=username).first()
+        user = UserTable.query.get_or_404(username)
 
-        answer = AnswerTable(**answer_data, user_id=user.id, q_id=q_id)
+        answer = AnswerTable(**answer_data, user_id=user.username, q_id=q_id)
         try:
             db.session.add(answer)
             db.session.commit()
