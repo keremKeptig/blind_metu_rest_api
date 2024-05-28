@@ -14,3 +14,4 @@ redis
 jinja2
 azure-identity
 azure-keyvault-secrets
+pytz
