@@ -23,7 +23,7 @@ class ProblemForm(MethodView):
     def post(self, problem_data, username):
         user = UserTable.query.get_or_404(username)
 
-        problem_comment = ProblemTable(**problem_data,id=user.username)
+        problem_comment = ProblemTable(**problem_data,form_id=user.username)
         try:
             db.session.add(problem_comment)
             db.session.commit()
