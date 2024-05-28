@@ -64,8 +64,8 @@ class TestFind(MethodView):
         date_object = datetime.strptime(current_datetime.strftime("%Y-%m-%d"), "%Y-%m-%d")
 
         for test in tests:
-            test_start_datetime = datetime.combine(test.test_start_date, datetime.min.time())
-            test_end_datetime = datetime.combine(test.test_end_date, datetime.max.time())
+            test_start_datetime = datetime.combine(test.start_date, datetime.min.time())
+            test_end_datetime = datetime.combine(test.end_date, datetime.max.time())
 
             if test_start_datetime <= date_object <= test_end_datetime:
                 test_id = test.test_id
