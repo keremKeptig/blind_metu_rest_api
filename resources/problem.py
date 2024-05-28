@@ -12,7 +12,7 @@ from models import UserTable, ProblemTable
 import jinja2
 from datetime import date
 # Creating a Flask-Smorest Blueprint
-blp = Blueprint("ProblemForms", "problemForms", description="Operations on forms")
+blp = Blueprint("ProblemForms", "problem_form", description="Operations on forms")
 
 
 @blp.route("/problemform/<string:username>")

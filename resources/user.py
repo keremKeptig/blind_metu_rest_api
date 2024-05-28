@@ -10,7 +10,7 @@ from models import UserTable
 import jinja2
 from datetime import date
 # Creating a Flask-Smorest Blueprint
-blp = Blueprint("Users", "users", description="Operations on users")
+blp = Blueprint("Users", "user", description="Operations on users")
 
 
 @blp.route("/register")

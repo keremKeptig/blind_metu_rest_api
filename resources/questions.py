@@ -7,7 +7,7 @@ from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
 from database import db
 from schemas import UserSchema, QuestionSchema
-from models import QuestionTable,TestTable, AnswerTable
+from models import TestTable, QuestionTable, AnswerTable
 from datetime import datetime
 import jinja2
 from datetime import date
@@ -25,7 +25,7 @@ class Question(MethodView):
         if not questions:
             abort(404, message=f"No questions found for test_id {test_id}")
 
-        question_texts = [(question.q_text, question.q_id) for question in questions]
+        question_texts = [(question.question_text, question.question_id) for question in questions]
         return jsonify(question_texts)
 
 
@@ -56,7 +56,7 @@ class TestFind(MethodView):
         # tests = T estTable.query.all()
         tests = TestTable.query.all()
 
-        date_format = "%Y/%m-%d"  # Dizeyi bu formata göre çözümleme
+        date_format = "%Y/%m-%d"
 
         test_id = -1
 

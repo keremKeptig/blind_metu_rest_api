@@ -2,18 +2,19 @@ from database import db
 from datetime import date
 
 class UserTable(db.Model):
-    __tablename__ = "users"
+    __tablename__ = "user"
 
-    # id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), primary_key=True)
     password = db.Column(db.String(256), nullable=False)
     gender = db.Column(db.Integer, nullable=False)
     date_of_birth = db.Column(db.Date, nullable=False)
     sexual_interest = db.Column(db.Integer, nullable=False)
 
-    schedule_id = db.Column(db.Integer, db.ForeignKey("schedules.schedule_id"), unique=False, nullable=True)
-
     # answers = db.relationship('AnswerTable', back_populates='user', cascade='all, delete')
-    # questions = db.relationship('QuestionTable', back_populates='user', cascade='all, delete')
-    # matches = db.relationship('MatchTable', back_populates='user', cascade='all, delete')
-
+    # matches1 = db.relationship('MatchTable', foreign_keys='MatchTable.user1_username', back_populates='user1',
+    #                            cascade='all, delete')
+    # matches2 = db.relationship('MatchTable', foreign_keys='MatchTable.user2_username', back_populates='user2',
+    #                            cascade='all, delete')
+    # slots = db.relationship('SlotTable', back_populates='user', cascade='all, delete')
+    # problem_forms = db.relationship('ProblemFormTable', back_populates='user', cascade='all, delete')
+    #
