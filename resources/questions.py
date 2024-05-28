@@ -41,9 +41,9 @@ class UserCheckTestIsSolved(MethodView):
         questions = QuestionTable.query.filter_by(test_id=test_id).all()
 
         for question in questions:
-            answers = AnswerTable.query.filter_by(q_id=question.q_id).all()
+            answers = AnswerTable.query.filter_by(question_id=question.question_id).all()
             for answer in answers:
-                if answer.user_id == username:
+                if answer.username == username:
                     isTestSolved = 0
 
         return isTestSolved
