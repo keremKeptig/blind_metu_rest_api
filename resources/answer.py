@@ -23,7 +23,7 @@ class UserRegister(MethodView):
     def post(self, answer_data, username, q_id):
         user = UserTable.query.get_or_404(username)
 
-        answer = AnswerTable(**answer_data, user_id=user.username, q_id=q_id)
+        answer = AnswerTable(**answer_data, username=user.username, question_id=q_id)
         try:
             db.session.add(answer)
             db.session.commit()
