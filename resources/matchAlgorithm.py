@@ -145,12 +145,12 @@ class TestFind(MethodView):
             .order_by(MatchTable.date.desc()).first()
 
 
-        if username == latest_date_match.user1_username:
+        if latest_date_match is None:
+            return "No Match"
+        elif username == latest_date_match.user1_username:
             return latest_date_match.user2_username
         elif username == latest_date_match.user2_username:
             return latest_date_match.user1_username
-        else:
-            return "No Match"
 
 @blp.route("/slots")
 class TestFind(MethodView):
