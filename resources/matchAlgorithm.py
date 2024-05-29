@@ -173,6 +173,18 @@ class TestFind(MethodView):
             return {"message": str(e)}, 500
 
         return {"message": "Slot successfully added"}, 201
+        
+@blp.route("/slots/<string:username>")
+class SlotsRemove(MethodView):
+
+    def delete(self, username):
+        slots = ScheduleTable.query.filter_by(username=username).all()
+
+        for slot in slots:
+            db.session.delete(slot)
+        db.session.commit()
+
+        return {"message": "Slots deleted"}, 200
 
 @blp.route('/match_slots')
 class MatchSlots(MethodView):
