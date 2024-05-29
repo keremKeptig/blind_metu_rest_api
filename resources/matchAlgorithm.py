@@ -145,8 +145,8 @@ class TestFind(MethodView):
 
 
         if username == latest_date_match.user1_username:
-            return jsonify({'latest_date': latest_date_match.user2_username})
+            return latest_date_match.user2_username
         elif username == latest_date_match.user2_username:
-            return jsonify({'latest_date': latest_date_match.user1_username})
+            return latest_date_match.user1_username
         else:
-            return jsonify({"latest_date": "No Match"})
+            return "No Match"
