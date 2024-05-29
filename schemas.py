@@ -31,6 +31,11 @@ class UserSlots(Schema):
     user1 = fields.Str(required=True)
     user2 = fields.Str(required=True)
 
+class SlotsSchema(Schema):
+    day = fields.Str(required=True)
+    start_time = fields.Int(required=True)
+    end_time = fields.Int(required=True)
+    username = fields.Str(required=False)
 
 class ProblemSchema(Schema):
     form_id = fields.Int(dump_only=True)
