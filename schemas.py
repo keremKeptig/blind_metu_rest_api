@@ -26,6 +26,7 @@ class AnswerSchema(Schema):
     user_id = fields.Int(load_only=True)
     q_id = fields.Int(load_only=True)
     choice = fields.Str(required=False)
+    
 class UserSlots(Schema):
     user1 = fields.Str(required=True)
     user2 = fields.Str(required=True)
