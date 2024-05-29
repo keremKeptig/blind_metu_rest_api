@@ -17,7 +17,7 @@ import jinja2
 from datetime import date
 # Creating a Flask-Smorest Blueprint
 from datetime import datetime
-from schemas import SlotsSchema
+
 import pytz
 from sqlalchemy import and_
 
