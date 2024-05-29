@@ -125,7 +125,7 @@ class Match(MethodView):
         # Cevapları işlemek ve eşleşmeleri bulmak
         answers = [(user, ''.join(choices)) for user, choices in user_answer_pairs.items()]
         print(answers)
-        matches = find_best_matches(answers, 50.0)
+        matches = find_best_matches(answers, 80.0)
         print(matches)
         # Eşleşmeleri veri tabanına kaydet
         save_matches(matches, answers)
