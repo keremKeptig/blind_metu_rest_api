@@ -1,27 +1,28 @@
 import os
+from operator import and_
+
 import requests
-from flask import jsonify
+from flask import jsonify, request
 from sqlalchemy import or_, func
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
+from sqlalchemy.orm import aliased
+
 from database import db
-from schemas import UserSchema, QuestionSchema
-from models import QuestionTable, AnswerTable, MatchTable
+from schemas import UserSchema, QuestionSchema, UserSlots
+from models import QuestionTable, AnswerTable, MatchTable, ScheduleTable
 from datetime import datetime
 import jinja2
 from datetime import date
 # Creating a Flask-Smorest Blueprint
 from datetime import datetime
+from schemas import SlotsSchema
 import pytz
+from sqlalchemy import and_
+
 
 blp = Blueprint("Match", "match", description="match algorithm")
-
-
-
-
-
-
 
 
 
@@ -124,7 +125,7 @@ class Match(MethodView):
         # Cevapları işlemek ve eşleşmeleri bulmak
         answers = [(user, ''.join(choices)) for user, choices in user_answer_pairs.items()]
         print(answers)
-        matches = find_best_matches(answers, 80.0)
+        matches = find_best_matches(answers, 50.0)
         print(matches)
         # Eşleşmeleri veri tabanına kaydet
         save_matches(matches, answers)
@@ -150,3 +151,69 @@ class TestFind(MethodView):
             return latest_date_match.user1_username
         else:
             return "No Match"
+
+@blp.route("/slots")
+class TestFind(MethodView):
+    @blp.arguments(SlotsSchema)
+    def post(self, slots_data):
+
+        new_slot = ScheduleTable(
+            day=slots_data['day'],
+            start_time=slots_data['start_time'],
+            end_time=slots_data['end_time'],
+            username=slots_data['username']
+        )
+
+
+        try:
+            db.session.add(new_slot)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return {"message": str(e)}, 500
+
+        return {"message": "Slot successfully added"}, 201
+
+@blp.route('/match_slots')
+class MatchSlots(MethodView):
+
+    @blp.arguments(UserSlots)
+    @blp.response(200)
+    def post(self, users):
+        user1 = users["user1"]
+        user2 = users["user2"]
+
+        s1 = aliased(ScheduleTable)
+        s2 = aliased(ScheduleTable)
+
+        # Query to find matching slots using SQLAlchemy ORM
+        result = db.session.query(
+            s1.username.label('user1'),
+            s2.username.label('user2'),
+            s1.day,
+            s1.start_time,
+            s1.end_time
+        ).join(
+            s2,
+            and_(
+                s1.day == s2.day,
+                s1.start_time == s2.start_time,
+                s1.end_time == s2.end_time,
+                s2.username == user2
+            )
+        ).filter(
+            s1.username == user1
+        ).all()
+
+        # Process the results
+        slots = []
+        for row in result:
+            slots.append({
+                'user1': row.user1,
+                'user2': row.user2,
+                'day': row.day,
+                'start_time': row.start_time,
+                'end_time': row.end_time
+            })
+
+        return jsonify(slots)
