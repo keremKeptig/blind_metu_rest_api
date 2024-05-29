@@ -10,7 +10,7 @@ from passlib.hash import pbkdf2_sha256
 from sqlalchemy.orm import aliased
 
 from database import db
-from schemas import UserSchema, QuestionSchema, UserSlots
+from schemas import UserSchema, QuestionSchema, UserSlots, SlotsSchema
 from models import QuestionTable, AnswerTable, MatchTable, ScheduleTable
 from datetime import datetime
 import jinja2
