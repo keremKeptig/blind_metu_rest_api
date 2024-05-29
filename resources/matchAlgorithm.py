@@ -215,5 +215,9 @@ class MatchSlots(MethodView):
                 'start_time': row.start_time,
                 'end_time': row.end_time
             })
+        if len(slots) != 0:
+            return "You have matched with " + str(slots[0]['user2']) + " on " + str(slots[0]['day']) + " " + str(slots[0]['start_time']) + "-" + str(slots[0]['end_time']) + " at Lombard"
+        else:
+            return "null"
 
-        return jsonify(slots)
+        
